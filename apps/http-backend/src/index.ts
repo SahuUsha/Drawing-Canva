@@ -6,9 +6,11 @@ import { authMiddleawre } from "./middleware";
 // import {CreateUserSchema , SigninUserSchema ,RoomSchema} from "@repo/common/types"
 import { prismaClient } from "@repo/db";
 import {z} from "zod"
+import cors from "cors"
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 const CreateUserSchema = z.object({
     username: z.string().min(3).max(20),
@@ -67,8 +69,9 @@ app.post("/signup" , async(req : Request,res : Response) => {
         })
         
     } catch (error) {
-        res.status(411).json({
-            message : "error on creating user name "
+        console.log(error)
+        res.status(400).json({
+            message : "error on creating user "
         })
         
     }

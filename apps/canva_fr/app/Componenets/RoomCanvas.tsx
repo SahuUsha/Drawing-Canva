@@ -32,6 +32,7 @@ const RoomCanvas = ({ roomId } : {roomId :string} ) => {
   return (
     <div>
        <CanavsPage roomId={roomId} socket={socket}/>
+       
       
     </div>
   )

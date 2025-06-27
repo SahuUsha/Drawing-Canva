@@ -1,6 +1,6 @@
 "use client"
 
-type ToolType = "circle" | "rect" | "pencil";
+type ToolType = "circle" | "rect" | "pencil" | "line" | "eclipse" ;
 
 
 import { useEffect, useRef, useState } from "react"
@@ -8,7 +8,7 @@ import initDraw from "../draw"
 
 import React from 'react'
 import { IconButton } from "./icon"
-import { Circle, Pencil, RectangleHorizontalIcon } from "lucide-react"
+import { Circle,  CircleDashed,  CircleOff,  Pencil, RectangleHorizontalIcon, Slash } from "lucide-react"
 
 const CanavsPage = ({ roomId , socket } : {
     roomId :string,
@@ -53,6 +53,9 @@ const TopBar=({selectedTool, setSelectedTool}:{
         <IconButton icon={<RectangleHorizontalIcon/>} onClick={()=>{setSelectedTool("rect")}} activated={selectedTool==="rect"}></IconButton>
         <IconButton icon={<Circle/>} onClick={()=>{setSelectedTool("circle")}} activated={selectedTool==="circle"}></IconButton>
         <IconButton icon={<Pencil/>} onClick={()=>{setSelectedTool("pencil")}} activated={selectedTool==="pencil"}></IconButton>
+         <IconButton icon={<Slash/> } onClick={()=>{setSelectedTool("line")}} activated={selectedTool==="line"}></IconButton>
+         {/* <IconButton icon={<CircleOff/>} onClick={()=>{setSelectedTool}} activated={selectedTool==="none"}></IconButton> */}
+         <IconButton icon={<CircleDashed/>} onClick={()=>setSelectedTool("eclipse")} activated={selectedTool==="eclipse"}></IconButton>
         
     </div>
     </div>

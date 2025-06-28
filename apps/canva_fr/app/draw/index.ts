@@ -31,7 +31,14 @@ type Shape = {
     centerY: number;
     radiusX: number;
     radiusY: number;
-}
+} | {
+    type : "text";
+    x:number;
+    y: number;
+    content:string;
+    fontSize?: number;
+    fontFamily?: string;
+} 
 
 
 
@@ -76,8 +83,170 @@ const initDraw = async(canva:HTMLCanvasElement, roomId:string, socket : WebSocke
              lastY = e.offsetY;
              pencilPath = [];
             
-            console.log(e.clientX)
-            console.log(e.clientY)
+            // console.log(e.clientX)
+            // console.log(e.clientY)
+
+            // @ts-ignore
+            const selectedTool = window.selectedTool;
+            console.log("selected tool", selectedTool);
+           const shape : Shape | null = null;
+            if(selectedTool === "text"){
+                clicked = false;
+                 let shape: Shape;
+
+                 
+                  requestAnimationFrame(() => {
+    const canvasRect = canva.getBoundingClientRect();
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Type here...";
+    input.style.position = "fixed";
+    input.style.left = `${canvasRect.left + e.offsetX}px`;
+    input.style.top = `${canvasRect.top + e.offsetY - 10}px`;
+    input.style.fontSize = "20px";
+    input.style.color = "white";
+    input.style.background = "transparent";
+    input.style.border = "none";
+    input.style.outline = "none";
+    input.style.zIndex = "1000";
+
+    document.body.appendChild(input);
+    input.focus();
+
+    let isHandled = false;
+
+    const cleanup = () => {
+      if (!isHandled) {
+        isHandled = true;
+        if (input.parentNode) input.parentNode.removeChild(input);
+      }
+    };
+
+    const handleSubmit = () => {
+      if (isHandled) return;
+      const content = input.value.trim();
+      cleanup();
+      if (!content) return;
+
+      const shape: Shape = {
+        type: "text",
+        x: startX,
+        y: startY,
+        content,
+        fontSize: 20,
+        fontFamily: "Arial",
+      };
+
+      existingShape.push(shape);
+
+      // Send clean data
+      socket.send(
+        JSON.stringify({
+          type: "chat",
+          shape,
+          roomId,
+        })
+      );
+
+      clearCanva(existingShape, canva, ctx);
+    };
+
+    input.addEventListener("keydown", (eKey) => {
+      if (eKey.key === "Enter") {
+        eKey.preventDefault();
+        handleSubmit();
+      } else if (eKey.key === "Escape") {
+        eKey.preventDefault();
+        cleanup();
+      }
+    });
+
+    input.addEventListener("blur", () => {
+      setTimeout(() => {
+        if (!isHandled) handleSubmit();
+      }, 100);
+    });
+  });
+
+  return;
+                 
+
+
+
+//                 const canvasRect = canva.getBoundingClientRect();
+
+//                const input = document.createElement("input");
+//                 input.type = "text";
+//                 input.placeholder = "Type here...";
+//                 input.style.position = "fixed";
+//                 input.style.left = `${canvasRect.left + e.offsetX}px`;
+//   input.style.top = `${canvasRect.top + e.offsetY - 10}px`;
+//                 input.style.fontSize = "20px";
+//                 input.style.color = "white";
+//                 input.style.background = "transparent";
+//                 input.style.border = "none";
+//                 input.style.outline = "none";
+//                 input.style.zIndex = "1000";
+
+//                 console.log("input" , input)
+
+//                  document.body.appendChild(input);
+//                  input.focus();
+
+//                  let removed = false;
+
+//                 const cleanup = () => {
+//     if (!removed) {
+//       removed = true;
+        
+//       input.remove();
+//     }
+//   };
+
+
+    
+
+//  input.addEventListener("keydown", (eKey) => {
+//     if (eKey.key === "Enter") {
+   
+//       const content = input.value.trim();
+//        cleanup();
+
+//       if (!content) return;
+
+//        shape = {
+//         type: "text",
+//         x : startX,
+//         y : startY,
+//         content,
+//         fontSize: 20,
+//         fontFamily: "Arial",
+//       };
+
+//       console.log("shape", shape.content);
+
+//       existingShape.push(shape);
+
+//       socket.send(
+//         JSON.stringify({
+//           type: "chat",
+//           message: JSON.stringify({ shape }),
+//           roomId,
+//         })
+//       );
+
+//       clearCanva(existingShape, canva, ctx);
+//     }
+//     else if (eKey.key === "Escape") {
+//       cleanup();
+//     }
+//   });
+//     // input.addEventListener("blur", () => cleanup());
+
+//   return;
+
+}
+
         })
 
         canva.addEventListener("mouseup", (e)=>{
@@ -236,7 +405,7 @@ const initDraw = async(canva:HTMLCanvasElement, roomId:string, socket : WebSocke
        
     
     
-    function clearCanva(existingShape: Shape[], canva: HTMLCanvasElement, ctx : CanvasRenderingContext2D){
+function clearCanva(existingShape: Shape[], canva: HTMLCanvasElement, ctx : CanvasRenderingContext2D){
          
             ctx.clearRect(0,0,canva.width,canva.height);
             ctx.fillStyle="rgba(0,0,0)"
@@ -286,6 +455,10 @@ const initDraw = async(canva:HTMLCanvasElement, roomId:string, socket : WebSocke
   ctx.lineWidth = 2;
   ctx.stroke();
   ctx.closePath();
+        }else if(shape.type === "text"){
+            ctx.font = `${shape.fontSize || 20}px ${shape.fontFamily || "Arial"}`;
+            ctx.fillStyle = "rgba(255, 255, 255)";
+            ctx.fillText(shape.content, shape.x, shape.y);
         }
 
         })

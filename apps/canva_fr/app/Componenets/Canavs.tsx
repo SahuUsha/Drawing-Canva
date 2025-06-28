@@ -1,6 +1,6 @@
 "use client"
 
-type ToolType = "circle" | "rect" | "pencil" | "line" | "eclipse" ;
+type ToolType = "circle" | "rect" | "pencil" | "line" | "eclipse" | "text" ;
 
 
 import { useEffect, useRef, useState } from "react"
@@ -8,7 +8,7 @@ import initDraw from "../draw"
 
 import React from 'react'
 import { IconButton } from "./icon"
-import { Circle,  CircleDashed,  CircleOff,  Pencil, RectangleHorizontalIcon, Slash } from "lucide-react"
+import { Circle,  CircleDashed,  CircleOff,  Pencil, RectangleHorizontalIcon, Slash, TextCursorInput } from "lucide-react"
 
 const CanavsPage = ({ roomId , socket } : {
     roomId :string,
@@ -23,6 +23,20 @@ const CanavsPage = ({ roomId , socket } : {
         window.selectedTool = selectedTool
       }, [selectedTool])
 
+      useEffect(() => {
+  const canvas = canvasRef.current;
+  if (!canvas) return;
+
+  const resizeCanvas = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  };
+
+  resizeCanvas(); // initial set
+
+  window.addEventListener("resize", resizeCanvas);
+  return () => window.removeEventListener("resize", resizeCanvas);
+}, []);
 
      useEffect(()=>{
 
@@ -56,6 +70,7 @@ const TopBar=({selectedTool, setSelectedTool}:{
          <IconButton icon={<Slash/> } onClick={()=>{setSelectedTool("line")}} activated={selectedTool==="line"}></IconButton>
          {/* <IconButton icon={<CircleOff/>} onClick={()=>{setSelectedTool}} activated={selectedTool==="none"}></IconButton> */}
          <IconButton icon={<CircleDashed/>} onClick={()=>setSelectedTool("eclipse")} activated={selectedTool==="eclipse"}></IconButton>
+         <IconButton icon={<TextCursorInput/>} onClick={()=>setSelectedTool("text")} activated={selectedTool==="text"}></IconButton>
         
     </div>
     </div>

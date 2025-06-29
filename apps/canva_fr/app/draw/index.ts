@@ -143,7 +143,7 @@ const initDraw = async(canva:HTMLCanvasElement, roomId:string, socket : WebSocke
       socket.send(
         JSON.stringify({
           type: "chat",
-          shape,
+          message: JSON.stringify({shape}),
           roomId,
         })
       );

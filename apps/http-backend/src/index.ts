@@ -166,7 +166,8 @@ app.post("/room" ,authMiddleawre ,async(req,res)=>{
       })
   
       res.status(200).json({
-          roomId : room.id
+          roomId : room.id,
+          slug : room.slug
       })
   
   } catch (error) {
@@ -222,5 +223,85 @@ app.get("/room/:slug",async(req,res)=>{
     })
 })
 
+
+app.get("/allRooms" , authMiddleawre,async(req,res)=>{
+    try {
+        const rooms= await prismaClient.room.findMany({
+            include : {
+                admin : {
+                    select : {
+                        username : true,
+                        name : true
+                    }
+                }
+            },
+            orderBy : {
+                "createAt" : "desc"
+            }
+        })
+        
+        if(!rooms){
+            res.status(404).json({
+                message : "No rooms found"
+            })
+            return
+        }
+        console.log("rooms",rooms)
+
+        res.status(200).json({
+            rooms
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message : "error on getting rooms"
+        })
+        
+    }
+})
+
+app.delete("/room/:roomId",authMiddleawre,async(req,res)=>{
+    try {
+        const roomId = Number(req.params.roomId);
+        console.log("room id : ", roomId)
+
+        // @ts-ignore
+        const userId = req.userId;
+
+        const room = await prismaClient.room.findFirst({
+            where: {
+                id: roomId,
+                adminId: userId
+            }
+        })
+
+        console.log(room)
+
+        if (!room) {
+            res.status(404).json({
+                message: "Room not found or you are not the admin"
+            })
+            return
+        }
+
+        await prismaClient.room.delete({
+            where: {
+                id: roomId
+            }
+        })
+
+        res.status(200).json({
+            message: "Room deleted successfully"
+        })
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: "Error on deleting room"
+        })
+        
+    }
+
+})
 
 app.listen(5000)

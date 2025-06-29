@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className=" flex flex-col justify-center h-screen w-screen items-center">
+    <div className=" flex flex-col justify-center bg-black h-screen w-screen items-center">
       
-      <div className="text-2xl p-4 " >
+      <div className="text-2xl p-4 text-white " >
     Excelidraw-frontend
       </div>
       <div className="flex gap-3"> 

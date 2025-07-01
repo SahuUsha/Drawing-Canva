@@ -284,11 +284,19 @@ app.delete("/room/:roomId",authMiddleawre,async(req,res)=>{
             return
         }
 
+        await prismaClient.chat.deleteMany({
+            where: {
+                roomId: roomId
+            }
+        })
+
+        
         await prismaClient.room.delete({
             where: {
                 id: roomId
             }
         })
+
 
         res.status(200).json({
             message: "Room deleted successfully"

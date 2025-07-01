@@ -8,7 +8,8 @@ import initDraw from "../draw"
 
 import React from 'react'
 import { IconButton } from "./icon"
-import { Circle,  CircleDashed,  CircleOff,  Pencil, RectangleHorizontalIcon, Slash, TextCursorInput } from "lucide-react"
+import { ArrowLeft, Circle,  CircleDashed,  CircleOff,  Pencil, RectangleHorizontalIcon, Slash, TextCursorInput } from "lucide-react"
+import Link from "next/link";
 
 const CanavsPage = ({ roomId , socket } : {
     roomId :string,
@@ -50,8 +51,13 @@ const CanavsPage = ({ roomId , socket } : {
     
 
   return (
-    <div className="h-[100vh] overflow-hidden">
+    <div className="h-[100vh] bg-slate-700 overflow-hidden">
       <canvas ref={canvasRef}  className='bg-white' width={window.innerWidth} height={innerHeight} ></canvas>
+      <Link href="/dashboard">
+      <button className="fixed top-8 left-5  bg-gradient-to-r bg-gradient-to-r from-purple-600 to-blue-600  text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 group/button shadow-lg hover:shadow-blue-500/25 hover:shadow-xl-3.5 ">
+      <ArrowLeft/>
+      Back</button>
+      </Link>
        <TopBar selectedTool={selectedTool} setSelectedTool={setselectedTool}/>
     </div>
   )

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, User, ArrowRight, Palette, DoorOpen, DoorClosed, DoorClosedIcon, LineSquiggle } from 'lucide-react';
+import { Users, User, ArrowRight, Palette, DoorOpen, DoorClosed, DoorClosedIcon, LineSquiggle, DeleteIcon, Delete, ArchiveX } from 'lucide-react';
 import Link from 'next/link';
 
 interface RoomCardProps {
@@ -29,15 +29,20 @@ const RoomCard = ({
 
       <div className="relative z-10 flex flex-col gap-4">
       
-        <div>
-         
-          <div className="flex items-center gap-2 text-slate-400 text-sm group-hover:text-slate-300 transition-colors duration-300">
-            <User size={16} className="opacity-70" />
-            <span>Created by  <span className='font-semibold text-slate-300'>{creatorName}</span>  </span>
-          </div>
-        </div>
+        <div className="flex justify-between items-center">
+  {/* Left: Creator Info */}
+  <div className="flex items-center gap-2 text-slate-400 text-sm group-hover:text-slate-300 transition-colors duration-300">
+    <User size={16} className="opacity-70" />
+    <span>
+      Created by <span className="font-semibold text-slate-300">{creatorName}</span>
+    </span>
+  </div>
 
-
+  {/* Right: Archive Icon */}
+  <div className="text-slate-400 hover:text-emerald-500 cursor-pointer transition-colors duration-200">
+    <ArchiveX />
+  </div>
+</div>
         <div className="flex items-center self-start gap-1.5   backdrop-blur-sm px-1 py-1.5 rounded-lg   transition-all duration-300 group-hover:border-slate-500/50">
           <LineSquiggle size={18} className="text-slate-400 group-hover:text-blue-400 transition-colors duration-300" />
           <span className="text-xl text-slate-300 font-medium">{slug}</span>
@@ -49,11 +54,9 @@ const RoomCard = ({
           <span className="text-sm text-emerald-300 font-medium">Excalidraw Canvas</span>
         </div>
 
-    <Link href={`/canvas/${roomId}`} className="w-full">
-
+       <Link href={`/canvas/${roomId}`} className="w-full">
         <button
-          className="w-full mt-2 bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 hover:from-blue-500 hover:via-blue-600 hover:to-purple-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 group/button shadow-lg hover:shadow-blue-500/25 hover:shadow-xl"
-        >
+          className="w-full mt-2 bg-gradient-to-r bg-gradient-to-r from-purple-600 to-blue-600 hover:from-blue-500 hover:via-blue-600 hover:to-purple-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 group/button shadow-lg hover:shadow-blue-500/25 hover:shadow-xl">
           <span className="tracking-wide">Join Room</span>
           <ArrowRight
             size={18}
@@ -62,8 +65,6 @@ const RoomCard = ({
         </button>
     </Link>
       </div>
-
-   
       <div className="absolute top-3 right-3 w-20 h-20 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 pointer-events-none z-0"></div>
       <div className="absolute bottom-3 left-3 w-16 h-16 bg-gradient-to-tr from-purple-500/15 via-pink-500/15 to-orange-500/15 rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none z-0"></div>
     </div>

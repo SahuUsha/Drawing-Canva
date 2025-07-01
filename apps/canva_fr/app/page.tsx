@@ -1,25 +1,20 @@
+import { ArrowRight, Feather } from "lucide-react";
 import Link from "next/link";
+import Navbar from "./Componenets/Navbar";
+import HomeNavbar from "./Componenets/HomeNavbar";
+import Feature from "./Componenets/Feature";
+import { Herr_Von_Muellerhoff } from "next/font/google";
+import Hero from "./Componenets/hero";
+import Footer from "./Componenets/footer";
 
 
 export default function Home() {
   return (
-    <div className=" flex flex-col justify-center bg-black h-screen w-screen items-center">
-      
-      <div className="text-2xl p-4 text-white " >
-    Excelidraw-frontend
-      </div>
-      <div className="flex gap-3"> 
-        <Link href={'/signin'}>
-    <button className="bg-gray-500 p-2 mt-2 rounded" >Sign in</button>
-
-        </Link>
-        <Link href={"/signup"}>
-
-    <button className="bg-gray-500 p-2 mt-2 rounded" >Sign Up</button>
-        </Link>
-
-
-      </div>
+    <div>
+      <Hero/>
+      <Feature/>
+      <Footer/>
     </div>
+ 
   );
 }

@@ -8,6 +8,8 @@ import Navbar from '../Componenets/Navbar'
 
 const Dashboard = () => {
     const [allRooms, setallRooms] = useState([])
+    const [loading, setloading] = useState(true)
+    const [err, seterr] = useState("")
 
     const fetchAllRooms = async()=>{
         try {
@@ -20,11 +22,15 @@ const Dashboard = () => {
             if(response.data){
                 console.log("All rooms:",response.data.rooms);
                 setallRooms(response.data.rooms)
+                setloading(false)
             }
             
         } catch (error) {
             console.error("Error fetching rooms: ", error)
-            alert("Error fetching rooms: "+error)
+            // alert("Error fetching rooms: "+error)
+            seterr("Error fetching rooms: "+error)
+            setloading(false)
+
             
         }
     }
@@ -35,12 +41,28 @@ const Dashboard = () => {
     },[])
 
 
+    if(loading){
+        return (
+            <div className='bg-black min-h-screen min-w-screen  bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/20 flex items-center justify-center'>
+                  <div className="w-12 h-12 border-4 border-emerald-300 border-t-transparent rounded-full animate-spin"></div>
+                {/* <h1 className='text-emerald-300 text-2xl'>Loading Rooms...</h1> */}
+            </div>
+        )
+    }
 
+     if(err){
+        return (
+            <div className='bg-black min-h-screen min-w-screen  bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/20 flex items-center justify-center'>
+                <h1 className='text-red-500 text-2xl'> {err}</h1>
+            </div>
+        )
+     }
+ 
 
   return (
     <div className='bg-black min-h-screen min-w-screen  bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/20'>
         <div className='fixed top-6 left-0 w-full z-50 flex justify-center'>
-        <Navbar/>
+        <Navbar onRoomCreated={fetchAllRooms}/>
         </div>
         <div className='pt-32'>
             <div className='flex flex-col top-6 items-center justify-center mb-11'>

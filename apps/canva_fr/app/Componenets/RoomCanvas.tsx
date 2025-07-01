@@ -25,12 +25,12 @@ const RoomCanvas = ({ roomId } : {roomId :string} ) => {
    },[])
 
    if(!socket){
-    return <div>
+    return <div className="h-[100vh] bg-black  bg-gradient-to-b from-gray-900 to-black/50 flex items-center  justify-center text-white">
         Connecting to server...
     </div>
    }
   return (
-    <div>
+    <div className="h-[100vh] bg-slate-700 overflow-hidden">
        <CanavsPage roomId={roomId} socket={socket}/>
        
       

@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import CreateRoom from './createRoom';
 import { usePathname } from 'next/navigation';
+import CreateRoom from './CreateRoom';
 
 
 const Navbar = ({onRoomCreated} : any) => {

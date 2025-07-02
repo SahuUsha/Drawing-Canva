@@ -8,8 +8,9 @@ import initDraw from "../draw"
 
 import React from 'react'
 import { IconButton } from "./icon"
-import { ArrowLeft, Circle,  CircleDashed,  CircleOff,  Pencil, RectangleHorizontalIcon, Slash, TextCursorInput } from "lucide-react"
+import { ArrowLeft, Circle,  CircleAlert,  CircleDashed,  CircleOff,  Pencil, RectangleHorizontalIcon, Slash, TextCursorInput } from "lucide-react"
 import Link from "next/link";
+import DeleteModel from "./DeleteModel";
 
 const CanavsPage = ({ roomId , socket } : {
     roomId :string,
@@ -17,6 +18,7 @@ const CanavsPage = ({ roomId , socket } : {
 } ) => {
       const canvasRef = useRef<HTMLCanvasElement>(null)
       const [selectedTool, setselectedTool] = useState<ToolType>("rect")
+      const [openInstruct, setopenInstruct] = useState(false)
 
       useEffect(()=>{
  
@@ -59,6 +61,16 @@ const CanavsPage = ({ roomId , socket } : {
       Back</button>
       </Link>
        <TopBar selectedTool={selectedTool} setSelectedTool={setselectedTool}/>
+       <button onClick={()=>setopenInstruct(!openInstruct)} className="fixed top-11 left-32  bg-gradient-to-r bg-gradient-to-r from-purple-600 to-blue-600  text-white rounded-full">
+       <CircleAlert/>
+       </button>
+      {
+  openInstruct && (
+    <div className="fixed top-[5.3rem] left-2 bg-slate-900 text-white px-4 py-2 rounded-lg shadow-md border border-purple-500/30 z-50">
+      <p>Open with full screen</p>
+    </div>
+  )
+}
     </div>
   )
 }

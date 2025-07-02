@@ -1,6 +1,11 @@
-import React from 'react';
-import { Users, User, ArrowRight, Palette, DoorOpen, DoorClosed, DoorClosedIcon, LineSquiggle, DeleteIcon, Delete, ArchiveX } from 'lucide-react';
+"use client"
+
+import React,{useState} from 'react';
+import {  User, ArrowRight, Palette, DoorOpen, DoorClosed, DoorClosedIcon, LineSquiggle, DeleteIcon, Delete, ArchiveX } from 'lucide-react';
 import Link from 'next/link';
+import DeleteModel from './DeleteModel';
+import axios from 'axios';
+import { Http_BackendUrl } from '../config';
 
 interface RoomCardProps {
   slug: string;
@@ -16,7 +21,33 @@ const RoomCard = ({
   roomId,
  
 }: RoomCardProps) => {
+       const [showDeleteModal, setShowDeleteModal] = useState(false)
+
+
+       const handleDeleteRoom = async() => {
+         try {
+          const response = await axios.delete(`${Http_BackendUrl}/room/${roomId}`,{
+            headers: {
+              Authorization: `${localStorage.getItem("token")}`
+            }
+          })
+
+          if(response.data){
+            console.log("Room deleted successfully:", response.data);
+            // alert("Room deleted successfully: " + response.data.slug);
+            setShowDeleteModal(false); // Close the modal after successful deletion
+            window.location.reload(); // Reload the page to reflect changes
+          }
+          
+         } catch (error : any) {
+          console.error("Error deleting room:", error);
+          alert("Error deleting room: " + error.message );
+         }
+
+       }
+
   return (
+    <>
     <div className="group relative w-80 overflow-hidden isolate bg-gradient-to-br from-purple-900/25 via-gray-900 to-blue-900/20 rounded-2xl p-6 shadow-2xl border border-slate-700/30 hover:border-blue-400/40 hover:shadow-blue-500/20 hover:shadow-2xl transition-all duration-500 backdrop-blur-sm">
     
       <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-pink-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 blur-xl z-0"></div>
@@ -40,7 +71,9 @@ const RoomCard = ({
 
   {/* Right: Archive Icon */}
   <div className="text-slate-400 hover:text-emerald-500 cursor-pointer transition-colors duration-200">
+   <button onClick={() => setShowDeleteModal(true)} className="p-2 rounded-full hover:bg-slate-700/20 transition-colors duration-300">
     <ArchiveX />
+   </button>
   </div>
 </div>
         <div className="flex items-center self-start gap-1.5   backdrop-blur-sm px-1 py-1.5 rounded-lg   transition-all duration-300 group-hover:border-slate-500/50">
@@ -67,7 +100,19 @@ const RoomCard = ({
       </div>
       <div className="absolute top-3 right-3 w-20 h-20 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 pointer-events-none z-0"></div>
       <div className="absolute bottom-3 left-3 w-16 h-16 bg-gradient-to-tr from-purple-500/15 via-pink-500/15 to-orange-500/15 rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none z-0"></div>
+
     </div>
+    {showDeleteModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <DeleteModel
+      roomId={roomId}
+      roomName={slug}
+      onDelete={handleDeleteRoom}
+      onCancel={() => setShowDeleteModal(false)}
+    />
+  </div>
+)}
+  </>
   );
 };
 

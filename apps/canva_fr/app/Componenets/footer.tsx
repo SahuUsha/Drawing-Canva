@@ -1,4 +1,5 @@
 
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -20,14 +21,16 @@ const Footer = () => {
           <button className="group inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
              <Link href="/dashboard" >
         
-            Get Started Free
+            Get Started
+            
           </Link>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
           </button>
         </div>
 
         <div className="pt-8 border-t border-gray-800 text-gray-500">
           <p className="mb-4">
-            Built with ❤️ for visual thinkers everywhere
+            Built with 💜 for visual thinkers everywhere
           </p>
           <div className="flex justify-center space-x-8 text-sm">
             <a href="#" className="hover:text-purple-400 transition-colors duration-300">Privacy</a>

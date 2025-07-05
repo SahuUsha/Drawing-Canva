@@ -1,3 +1,4 @@
+
 import RoomCanvas from "@/app/Componenets/RoomCanvas"
 
 const Canva =async( {params}:{
@@ -10,7 +11,8 @@ const Canva =async( {params}:{
   const roomId = (await params).roomId
   console.log("roomId",roomId)
 
-  return <RoomCanvas roomId={roomId}/>
+  return   <RoomCanvas roomId={roomId}/>
+
 
    
 }

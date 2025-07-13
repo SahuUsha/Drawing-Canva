@@ -30,7 +30,7 @@ const HomeNavbar = () => {
       <div className="flex items-center justify-between">
           <button className="text-xl font-semibold cursor-pointer">
         <Link href="/" >
-            🎨 Excalidraw
+            🎨 CollabSketch
         </Link>
             </button>
    

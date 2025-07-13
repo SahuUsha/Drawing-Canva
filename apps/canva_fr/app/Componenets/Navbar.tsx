@@ -18,7 +18,7 @@ const Navbar = ({onRoomCreated} : any) => {
       <div className="mx-auto w-[90%] lg:w-[97%] max-w-7xl bg-purple-800/20 backdrop-blur-md border border-purple-500/30 rounded-2xl py-4 px-6 text-white shadow-md">
         <div className="flex items-center justify-between">
           <button className="text-xl font-semibold cursor-pointer">
-            <Link href="/">🎨 Excalidraw</Link>
+            <Link href="/">🎨 CollabSketch</Link>
           </button>
           <div className="space-x-6 text-sm font-medium text-slate-200">
             <button

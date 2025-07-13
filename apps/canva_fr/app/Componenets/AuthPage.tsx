@@ -55,7 +55,7 @@ const AuthPage = ({ isSignin }: { isSignin: boolean }) => {
             value={name}
             onChange={(e) => setFullName(e.target.value)}
             placeholder="Full Name"
-            className="w-full px-4 py-2 mb-4 rounded-lg bg-gray-800 border border-purple-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            className="w-full px-4 py-2 mb-4 rounded-lg bg-gray-800/50  border border-purple-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
           />
         )}
 
@@ -65,7 +65,7 @@ const AuthPage = ({ isSignin }: { isSignin: boolean }) => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
-          className="w-full px-4 py-2 mb-4 rounded-lg bg-gray-800 border border-purple-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+          className="w-full px-4 py-2 mb-4 rounded-lg bg-gray-800/50   border border-purple-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
         />
 
         <input
@@ -74,7 +74,7 @@ const AuthPage = ({ isSignin }: { isSignin: boolean }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          className="w-full px-4 py-2 mb-6 rounded-lg bg-gray-800 border border-purple-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+          className="w-full px-4 py-2 mb-6 rounded-lg bg-gray-800/50  border border-purple-500/30 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
         />
 
         <button

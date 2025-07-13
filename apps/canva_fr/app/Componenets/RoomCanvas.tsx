@@ -5,15 +5,13 @@ import { WS_URl } from "../config"
 import CanavsPage from "./Canavs"
 
 
-
-
-
 const RoomCanvas = ({ roomId } : {roomId :string} ) => {
 
   const [socket, setsocket] = useState<WebSocket | null>(null)
+  const token = localStorage.getItem('token')
 
    useEffect(()=>{
-    const ws = new WebSocket(`${WS_URl}?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzBjYjcyMi0xMGEwLTQ2YmUtOGMzYS0yODY1Y2JiOTE3YWYiLCJpYXQiOjE3NTA4NDcyNjB9.-0l1k03OHNkQ6TRZXi2sQj6GOHw8XT9PDkNGJKXsOLM`)
+    const ws = new WebSocket(`${WS_URl}?token=${token}`)
 
     ws.onopen=()=>{
         setsocket(ws)

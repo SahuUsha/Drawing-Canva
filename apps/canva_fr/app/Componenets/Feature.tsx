@@ -10,7 +10,7 @@ const Feature = () => {
     },
     {
       title: "Real-time Collaboration",
-      description: "Work together with your team in real-time. See changes instantly as they happen.",
+      description: "Work together with your friends in real-time. See changes instantly as they happen.",
       icon: "👥"
     },
   
@@ -24,7 +24,7 @@ const Feature = () => {
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            Why Choose Excalidraw?
+            Why Choose CollabSketch?
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             The perfect tool for visual thinking, brainstorming, and creating beautiful diagrams that don't look like they were made by a robot.

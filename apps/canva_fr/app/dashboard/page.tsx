@@ -38,7 +38,7 @@ const DashboardContent = () => {
 
   if (loading) {
     return (
-      <div className='bg-black min-h-screen flex justify-center items-center'>
+      <div className='bg-black min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/20 flex justify-center items-center'>
         <div className="w-12 h-12 border-4 border-emerald-300 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
@@ -46,7 +46,7 @@ const DashboardContent = () => {
 
   if (err) {
     return (
-      <div className='bg-black min-h-screen flex justify-center items-center'>
+      <div className='bg-black min-h-screen flex justify-center items-center bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/20'>
         <h1 className='text-red-500 text-2xl'>{err}</h1>
       </div>
     );
@@ -59,7 +59,7 @@ const DashboardContent = () => {
       </div>
       <div className='pt-32'>
         <div className='flex flex-col top-6 items-center justify-center mb-11'>
-          <h1 className='text-4xl font-bold text-white p-4'>Excalidraw Rooms</h1>
+          <h1 className='text-4xl font-bold text-white p-4'>CollabSketch Rooms</h1>
           <p className='text-slate-400 text-xl'>
             Join collaborative drawing rooms with your friends
           </p>

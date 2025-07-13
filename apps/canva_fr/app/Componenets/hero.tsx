@@ -27,7 +27,7 @@ const Hero = () => {
         <div className="mb-8">
         
           <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-4">
-            Excalidraw
+            CollabSketch
           </h1>
        
            
@@ -43,7 +43,7 @@ const Hero = () => {
           <Link href={"/dashboard"} className="inline-block">
 
           <button className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
-            Start Drawing
+            Let's Start
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
           </button>
           </Link>
